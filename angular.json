@@ -34,9 +34,7 @@
               
             ],
             "scripts": [
-            "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-            "src/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js",
-            "src/assets/vendor/isotope-layout/isotope.pkgd.min.js"
+            "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {

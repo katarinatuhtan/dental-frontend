@@ -662,7 +662,7 @@ section,
 .section {
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 60px 0;
+  padding: 30px ;
   scroll-margin-top: 88px;
   overflow: clip;
   text-decoration: none;
@@ -683,7 +683,7 @@ section,
 .section-title {
   padding-top: 50px;
   text-align: center;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
   position: relative;
 
 }
@@ -1059,7 +1059,6 @@ section,
 }
 
 .contact .info-item h3 {
-  padding: 0;
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 5px;
@@ -1070,7 +1069,8 @@ section,
   margin-bottom: 0;
   font-size: 14px;
 }
-.contact .info-item a {
+
+.contact  a {
   text-decoration: none;
   color: #47b2e4;
 }
@@ -1186,7 +1186,6 @@ section,
   margin-top: 120px;
   color: var(--heading-color);
   font-family: var(--heading-font);
-  text-align: center;
   font-weight: 700;
 }
 

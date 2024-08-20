@@ -1177,3 +1177,6 @@ section,
   font-weight: 700;
 }
 
+.form-row select{
+  color:#686767;
+}

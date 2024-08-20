@@ -38,19 +38,16 @@ export class ReservationComponent {
       phone: ['', Validators.required]
     });
 
-    // Onemogućeni datumi (npr. praznici)
     this.disabledDates = [
-      new Date('2024-12-25'),  // Božić
-      new Date('2024-01-01')   // Nova godina
+      new Date('2024-12-25'),  
+      new Date('2024-01-01')   
     ];
 
-    // Onemogućeni dani u tjednu (npr. nedjelja, subota)
-    this.disabledDays = [0, 6]; // 0 = Nedjelja, 6 = Subota
+    this.disabledDays = [0, 6]; 
 
-    // Ograničeni raspon datuma (npr. od danas do 3 mjeseca unaprijed)
     this.minDate = new Date();
     this.maxDate = new Date();
-    this.maxDate.setMonth(this.maxDate.getMonth() + 3); // 3 mjeseca unaprijed
+    this.maxDate.setMonth(this.maxDate.getMonth() + 3); 
   }
 
   onPhoneCodeChange(): void {
@@ -63,12 +60,10 @@ export class ReservationComponent {
     }
   }
 
-  // Funkcija za validaciju odabranog vremena
   onDateSelect(event: any): void {
     const selectedDate: Date = event;
     const selectedHour = selectedDate.getHours();
 
-    // Ograničenje vremena (npr. 9 AM do 5 PM)
     if (selectedHour < 9 || selectedHour > 16) {
       this.reservationForm.get('date')?.setErrors({ 'invalidTime': true });
       this.messageService.add({ severity: 'error', summary: 'Greška', detail: 'Odabrano vrijeme nije dozvoljeno. Odaberite vrijeme između 09:00 i 17:00.' });

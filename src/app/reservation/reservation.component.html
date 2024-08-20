@@ -2,8 +2,9 @@
   <h2>NARUČITE SE ZA PREGLED</h2>
   <h3>Ispunite obrazac.</h3>
   <div class="form-container">
+
     <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
-      <div class="form-row">
+      <div class="row">
         <div class="form-group col-md-6 mb-3">
           <label for="firstName">Ime</label>
           <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Ime">
@@ -21,8 +22,8 @@
           </div>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
+      <div class="row">
+        <div class="form-group col-md-6 mb-3">
           <label for="inputEmail">Email</label>
           <input type="email" class="form-control" id="email" formControlName="email" placeholder="Email">
 
@@ -36,11 +37,12 @@
             </div>
           </div>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-6 mb-3">
           <label for="phone">Telefon</label>
           <div class="input-group">
-            <select id="phoneCode" class="dropdown-toggle form-control" formControlName="phoneCode"
-              (change)="onPhoneCodeChange()" style="max-width: 120px;">
+            <select id="phoneCode" class="dropdown-toggle form-select" formControlName="phoneCode"
+              (change)="onPhoneCodeChange()" style="max-width: 140px;">
+              <option value="" selected disabled>Odaberite</option>
               <option value="+385">+385 (HR)</option>
               <option value="+1">+1 (SAD/CA)</option>
               <option value="+41">+41 (CH)</option>
@@ -48,7 +50,6 @@
               <option value="+49">+49 (GER)</option>
               <option value="+381">+381 (SRB)</option>
               <option value="+387">+387 (BiH)</option>
-              
               <option value="+39">+39 (IT)</option>
             </select>
             <input type="tel" class="form-control" id="phone" formControlName="phone" placeholder="Broj telefona">
@@ -59,11 +60,11 @@
           </div>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
+      <div class="row">
+        <div class="form-group col-md-6 mb-3">
           <label for="service">Usluga</label>
-          <select id="service" class="form-control" formControlName="service">
-            <option selected disabled>Odaberite uslugu</option>
+          <select id="service" class="form-select" formControlName="service" >
+            <option value="" selected disabled>Odaberite uslugu</option>
             <option value="endodoncija">Endodoncija</option>
             <option value="ortodoncija">Ortodoncija</option>
             <option value="protetika">Protetika</option>
@@ -74,28 +75,20 @@
             Usluga je obavezna.
           </div>
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3 mb-3">
           <label for="date">Datum i vrijeme</label>
-  <p-calendar id="date"
-              formControlName="date"
-              [disabledDates]="disabledDates"
-              [disabledDays]="disabledDays"
-              [minDate]="minDate"
-              [maxDate]="maxDate"
-              [stepMinute]="5"
-              [showTime]="true"
-              dateFormat="dd.mm.yy"
-              showIcon="true"
-              (onSelect)="onDateSelect($event)"></p-calendar>
-  <div *ngIf="reservationForm.get('date')?.invalid && reservationForm.get('date')?.touched" class="text-danger">
-    Datum i vrijeme su obavezni.
-  </div>
-  <div *ngIf="reservationForm.get('date')?.errors?.['invalidTime']" class="text-danger">
-    Odabrano vrijeme nije dozvoljeno. Molimo odaberite vrijeme između 09:00 i 17:00.
-  </div>
+          <p-calendar id="date" formControlName="date" [disabledDates]="disabledDates" [disabledDays]="disabledDays"
+            [minDate]="minDate" [maxDate]="maxDate" [stepMinute]="5" [showTime]="true" dateFormat="dd.mm.yy"
+            showIcon="true" (onSelect)="onDateSelect($event)" placeholder="Odaberite"></p-calendar>
+          <div *ngIf="reservationForm.get('date')?.invalid && reservationForm.get('date')?.touched" class="text-danger">
+            Datum i vrijeme su obavezni.
+          </div>
+          <div *ngIf="reservationForm.get('date')?.errors?.['invalidTime']" class="text-danger">
+            Odabrano vrijeme nije dozvoljeno. Molimo odaberite vrijeme između 09:00 i 17:00.
+          </div>
         </div>
       </div>
-      <div class="form-row">
+      <div class="row">
         <div class="form-group col-md-12">
           <label for="note">Dodatne napomene</label>
           <textarea id="note" class="form-control" formControlName="note" rows="3"

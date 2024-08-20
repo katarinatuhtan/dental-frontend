@@ -25,9 +25,19 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/saga-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css"
+              
             ],
-            "scripts": []
+            "scripts": [
+            "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+            "src/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js",
+            "src/assets/vendor/isotope-layout/isotope.pkgd.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -86,7 +96,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
           }
         }
       }

@@ -676,8 +676,9 @@ section,
   # Global Section Titles
   --------------------------------------------------------------*/
 .section-title {
+  padding-top: 50px;
   text-align: center;
-  padding-bottom: 60px;
+  padding-bottom: 50px;
   position: relative;
 
 }
@@ -1146,7 +1147,7 @@ section,
   # Form Section
   --------------------------------------------------------------*/
 .form-container {
-  margin-top: 50px;
+  margin-top: 80px;
   border: 2px solid #ccc;
   border-radius: 10px;
   padding: 20px;
@@ -1180,3 +1181,4 @@ section,
 .form-row select{
   color:#686767;
 }
+

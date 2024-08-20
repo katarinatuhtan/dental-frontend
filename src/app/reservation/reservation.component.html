@@ -1,6 +1,9 @@
 <div class="container">
-  <h2>NARUČITE SE ZA PREGLED</h2>
-  <h3>Ispunite obrazac.</h3>
+
+  <div class="container section-title">
+    <h2>NARUČITE SE ZA PREGLED</h2>
+    <h3>Ispunite obrazac</h3>
+  </div>
   <div class="form-container">
 
     <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
@@ -63,7 +66,7 @@
       <div class="row">
         <div class="form-group col-md-6 mb-3">
           <label for="service">Usluga</label>
-          <select id="service" class="form-select" formControlName="service" >
+          <select id="service" class="form-select" formControlName="service">
             <option value="" selected disabled>Odaberite uslugu</option>
             <option value="endodoncija">Endodoncija</option>
             <option value="ortodoncija">Ortodoncija</option>
@@ -84,7 +87,7 @@
             Datum i vrijeme su obavezni.
           </div>
           <div *ngIf="reservationForm.get('date')?.errors?.['invalidTime']" class="text-danger">
-            Odabrano vrijeme nije dozvoljeno. Molimo odaberite vrijeme između 09:00 i 17:00.
+            Molimo odaberite vrijeme između 09:00 i 17:00 u intervalima od 5 minuta.
           </div>
         </div>
       </div>
@@ -105,4 +108,4 @@
     </form>
   </div>
 </div>
-<p-toast position="bottom-right" />
+<p-toast position="bottom-right"/>

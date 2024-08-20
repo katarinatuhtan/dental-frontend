@@ -27,11 +27,15 @@ export class ReservationComponent {
     private messageService: MessageService,
     private reservationService: ReservationService
   ) {
+    // Inicijalno vrijeme postavljeno na 09:00
+    const initialDate = new Date();
+    initialDate.setHours(9, 0, 0, 0); // Postavlja sat na 9:00 i resetira sekunde i milisekunde
+
     this.reservationForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       service: ['', Validators.required],
-      date: [null, Validators.required],
+      date: [initialDate, Validators.required],  // Postavljanje početnog vremena na 09:00
       note: [''],
       email: ['', [Validators.required, Validators.email]],
       phoneCode: ['', Validators.required],
@@ -63,10 +67,10 @@ export class ReservationComponent {
   onDateSelect(event: any): void {
     const selectedDate: Date = event;
     const selectedHour = selectedDate.getHours();
+    const selectedMinute = selectedDate.getMinutes();
 
-    if (selectedHour < 9 || selectedHour > 16) {
+    if (selectedHour < 9 || selectedHour > 16 || selectedMinute % 5 !== 0) {
       this.reservationForm.get('date')?.setErrors({ 'invalidTime': true });
-      this.messageService.add({ severity: 'error', summary: 'Greška', detail: 'Odabrano vrijeme nije dozvoljeno. Odaberite vrijeme između 09:00 i 17:00.' });
     }
   }
 
@@ -83,6 +87,5 @@ export class ReservationComponent {
       this.messageService.add({ severity: 'error', summary: 'Greška!', detail: 'Došlo je do pogreške, pokušajte ponovno kasnije' });
       this.reservationForm.reset();
     });
-    
   }
 }

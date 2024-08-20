@@ -615,9 +615,10 @@ h6 {
   --background-color: color-mix(in srgb, var(--default-color), transparent 96%);
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 20px 0;
+  padding-top: 20px;
   position: relative;
   text-decoration: none;
+  margin-top: 100px;
 }
 
 .page-title h1 {
@@ -625,6 +626,10 @@ h6 {
   font-weight: 700;
   margin: 0;
   text-decoration: none;
+}
+.page-title a{
+  text-decoration: none;
+  color: #444444;
 }
 
 .page-title .breadcrumbs ol {
@@ -1141,6 +1146,13 @@ section,
   font-size: 20px;
   margin-right: 8px;
   color: var(--accent-color);
+}
+
+.endo-img{
+  height: 550px;
+  width: 350px;
+  margin-top: 10px;
+  margin-bottom: 40px;
 }
 
 /*--------------------------------------------------------------

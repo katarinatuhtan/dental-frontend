@@ -27,15 +27,15 @@ export class ReservationComponent {
     private messageService: MessageService,
     private reservationService: ReservationService
   ) {
-    // Inicijalno vrijeme postavljeno na 09:00
+  
     const initialDate = new Date();
-    initialDate.setHours(9, 0, 0, 0); // Postavlja sat na 9:00 i resetira sekunde i milisekunde
+    initialDate.setHours(9, 0, 0, 0); 
 
     this.reservationForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       service: ['', Validators.required],
-      date: [initialDate, Validators.required],  // Postavljanje početnog vremena na 09:00
+      date: [initialDate, Validators.required],  
       note: [''],
       email: ['', [Validators.required, Validators.email]],
       phoneCode: ['', Validators.required],

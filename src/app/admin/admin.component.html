@@ -139,9 +139,16 @@
 
       <div class="search-bar-container">
         <i class="bi bi-search search-icon"></i>
-        <input type="text" pInputText placeholder="Pretraži" [(ngModel)]="searchQuery" (input)="filterPatients()"
-          class="search-bar" />
+        <input
+          type="text"
+          pInputText
+          placeholder="Pretraži"
+          [(ngModel)]="searchQuery"
+          (input)="filterPatients()"
+          class="search-bar"
+        />
       </div>
+      
 
       <div class="table-responsive">
         <table class="table align-middle mb-0 bg-white">
@@ -156,7 +163,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let patient of patients">
+            <tr *ngFor="let patient of filteredPatients">
               <td>
                 <div class="d-flex align-items-center">
                   <i class="bi bi-person-circle fs-2"></i>
@@ -173,9 +180,9 @@
               <td>{{ patient.phone }}</td>
               <td>{{ patient.note || '/' }}</td>
               <td>
-                <button class="btn btn-get-started btn-outline-secondary" (click)="onEditPatient(patient)"> <i
-                    class="bi bi-pencil-square"></i>
-                  Uredi</button>
+                <button class="btn btn-get-started btn-outline-secondary" (click)="onEditPatient(patient)">
+                  <i class="bi bi-pencil-square"></i> Uredi
+                </button>
               </td>
             </tr>
           </tbody>

@@ -12,8 +12,8 @@ import { AdminService } from './service/admin.service';
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [TableModule, CommonModule, RouterModule, FormsModule, DialogModule,InputTextModule, ReactiveFormsModule, CalendarModule],
-  providers:[MessageService],
+  imports: [TableModule, CommonModule, RouterModule, FormsModule, DialogModule, InputTextModule, ReactiveFormsModule, CalendarModule],
+  providers: [MessageService],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
 })
@@ -33,33 +33,33 @@ export class AdminComponent implements OnInit {
 
 
   constructor(
-              private fb: FormBuilder,
-              private adminService: AdminService,
-              private messageService: MessageService) {  
+    private fb: FormBuilder,
+    private adminService: AdminService,
+    private messageService: MessageService) {
     const initialDate = new Date();
     initialDate.setHours(9, 0, 0, 0);
-    
+
     this.patientForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       service: ['', Validators.required],
-      date: [initialDate, Validators.required],  
+      date: [initialDate, Validators.required],
       note: [''],
       email: ['', [Validators.required, Validators.email]],
       phoneCode: ['', Validators.required],
       phone: ['', Validators.required]
     });
     this.disabledDates = [
-      new Date('2025-12-25'),  
-      new Date('2025-01-01')   
+      new Date('2025-12-25'),
+      new Date('2025-01-01')
     ];
 
-    this.disabledDays = [0, 6]; 
+    this.disabledDays = [0, 6];
 
     this.minDate = new Date();
     this.maxDate = new Date();
-    this.maxDate.setMonth(this.maxDate.getMonth() + 3); 
-}
+    this.maxDate.setMonth(this.maxDate.getMonth() + 3);
+  }
 
   ngOnInit(): void {
     this.loadAllPatients();
@@ -72,26 +72,31 @@ export class AdminComponent implements OnInit {
         this.filteredPatients = [...this.patients]; // Initialize filteredPatients with all patients
       },
       (error) => {
-        this.messageService.add({ severity: 'error',
-          summary: 'Pogreška', detail: 'Pogreška prilikom učitavanja pacijenata.' });
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Pogreška', detail: 'Pogreška prilikom učitavanja pacijenata.'
+        });
       }
     );
   }
 
-  showCreateDialog(): void  {
+  showCreateDialog(): void {
     this.patientForm.reset();
     this.selectedPatient = null;
     this.displayDialog = true;
   }
-
   filterPatients(): void {
-    if (this.searchQuery.trim() === '') {
-      this.filteredPatients = [...this.patients]; // Show all patients if the search query is empty
-    } else {
-      this.filteredPatients = this.patients.filter(patient =>
-        patient.firstName.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
+    const query = this.searchQuery?.toLowerCase().trim() || '';
+
+    if (!query) {
+      this.filteredPatients = [...this.patients];
+      return;
     }
+
+    this.filteredPatients = this.patients.filter(patient => {
+      const firstName = (patient.firstName || '').toLowerCase();
+      return firstName.includes(query);
+    });
   }
 
   onSubmit(): void {
@@ -113,14 +118,14 @@ export class AdminComponent implements OnInit {
   onEditPatient(patient: any): void {
     this.selectedPatient = patient;
     this.selectedPatientId = patient.id;
-  
+
     // Reset the form and ensure it's in a clean state
     this.patientForm.reset();
-  
+
     // Temporarily enable the date field to allow patching
     const dateControl = this.patientForm.get('date');
     dateControl?.enable();
-  
+
     // Patch values to the form controls
     this.patientForm.patchValue({
       firstName: patient.firstName || '',
@@ -132,10 +137,10 @@ export class AdminComponent implements OnInit {
       phoneCode: patient.phoneCode || '',
       phone: patient.phone || ''
     });
-    
+
     // Open the dialog
     this.displayDialog = true;
-  
+
     // Optional: Show a message for editing
     this.messageService.add({
       severity: 'info',
@@ -143,18 +148,22 @@ export class AdminComponent implements OnInit {
       detail: `Uređivanje pacijenta: ${patient.firstName}`
     });
   }
-  
+
   onDeletePatient(id: number): void {
     if (confirm('Jeste sigurni da želite obrisati pacijenta?')) {
       this.adminService.deletePatient(id).subscribe(
         () => {
-          this.messageService.add({ severity: 'success',
-            summary: 'Obrisano', detail: 'Pacijent je uspješno obrisan.' });
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Obrisano', detail: 'Pacijent je uspješno obrisan.'
+          });
           this.loadAllPatients();  // Reload recipes after deletion
         },
         (error) => {
-          this.messageService.add({ severity: 'error',
-            summary: 'Pogreška', detail: 'Pogreška pri brisanju podataka o pacijentu.' });
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Pogreška', detail: 'Pogreška pri brisanju podataka o pacijentu.'
+          });
         }
       );
     }

@@ -174,7 +174,7 @@
                 </div>
               </td>
               <td>
-                <p class="fw-normal mb-1">{{ patient.date }}</p>
+                <p class="fw-normal mb-1">{{ patient.date | date:'dd.MM.yyyy, HH:mm' }}</p>
               </td>
               <td>{{ patient.service }}</td>
               <td>{{ patient.phone }}</td>

@@ -108,6 +108,8 @@ export class AdminComponent implements OnInit {
       console.log(response);
       this.messageService.add({ severity: 'success', summary: 'Uspjeh!', detail: 'Vaša rezervacija za termin je zaprimljena' });
       this.patientForm.reset();
+      this.displayDialog = false; 
+      this.loadAllPatients(); 
     }, (error) => {
       this.messageService.add({ severity: 'error', summary: 'Greška!', detail: 'Došlo je do pogreške, pokušajte ponovno kasnije' });
       this.patientForm.reset();

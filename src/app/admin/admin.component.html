@@ -1,0 +1,186 @@
+<header id="header" class="header d-flex align-items-center fixed-top">
+  <div class="container-fluid container-xl position-relative d-flex align-items-center">
+    <a href="" class="logo d-flex align-items-center me-auto">
+      <img src="assets/logo.png" alt="">
+    </a>
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a href="">Odjava</a></li>
+      </ul>
+      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+    </nav>
+  </div>
+</header>
+
+<div class="page-title">
+  <div class="container">
+    <h1>Upravljanje pacijentima</h1>
+  </div>
+</div>
+<section id="service-details" class="service-details section">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="d-flex">
+        <button class="btn btn-get-started btn-outline-secondary" (click)="showCreateDialog()"><i
+            class="bi bi-person-plus-fill"></i> Dodaj pacijenta</button>
+      </div>
+
+      <p-dialog [(visible)]="displayDialog" [modal]="true" [style]="{ width: '70rem', 'max-height': '100vh' }"
+      [breakpoints]="{ '1199px': '85vw', '768px': '90vw', '575px': '95vw' }"
+      [contentStyle]="{ 'overflow-y': 'auto', 'max-height': '80vh' }">
+        <div class="container" style="background-color: #f8f9fa; padding: 40px 40px; border-radius: 10px;
+      max-width: 800px; margin: auto;">
+
+          <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="form-group col-md-6 mb-3">
+                <label for="firstName">Ime</label>
+                <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Ime">
+                <div *ngIf="patientForm.get('firstName')?.invalid && patientForm.get('firstName')?.touched"
+                  class="text-danger">
+                  Ime je obavezno.
+                </div>
+              </div>
+              <div class="form-group col-md-6 mb-3">
+                <label for="lastName">Prezime</label>
+                <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Prezime">
+                <div *ngIf="patientForm.get('lastName')?.invalid && patientForm.get('lastName')?.touched"
+                  class="text-danger">
+                  Prezime je obavezno.
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6 mb-3">
+                <label for="inputEmail">Email</label>
+                <input type="email" class="form-control" id="email" formControlName="email" placeholder="Email">
+
+                <div *ngIf="patientForm.get('email')?.invalid && patientForm.get('email')?.touched" class="text-danger">
+                  <div *ngIf="patientForm.get('email')?.errors?.['required']">
+                    Email je obavezan.
+                  </div>
+                  <div *ngIf="patientForm.get('email')?.errors?.['email']">
+                    Unesite ispravan email.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-6 mb-3">
+                <label for="phone">Telefon</label>
+                <div class="input-group">
+                  <select id="phoneCode" class="dropdown-toggle form-select" formControlName="phoneCode"
+                    (change)="onPhoneCodeChange()" style="max-width: 140px;">
+                    <option value="" selected disabled>Odaberite</option>
+                    <option value="+385">+385 (HR)</option>
+                    <option value="+1">+1 (SAD/CA)</option>
+                    <option value="+41">+41 (CH)</option>
+                    <option value="+44">+44 (UK)</option>
+                    <option value="+49">+49 (GER)</option>
+                    <option value="+381">+381 (SRB)</option>
+                    <option value="+387">+387 (BiH)</option>
+                    <option value="+39">+39 (IT)</option>
+                  </select>
+                  <input type="tel" class="form-control" id="phone" formControlName="phone" placeholder="Broj telefona">
+                </div>
+                <div *ngIf="patientForm.get('phone')?.invalid && patientForm.get('phone')?.touched" class="text-danger">
+                  Telefon je obavezan i mora biti ispravan.
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6 mb-3">
+                <label for="service">Usluga</label>
+                <select id="service" class="form-select" formControlName="service">
+                  <option value="" selected disabled>Odaberite uslugu</option>
+                  <option value="endodoncija">Endodoncija</option>
+                  <option value="ortodoncija">Ortodoncija</option>
+                  <option value="protetika">Protetika</option>
+                  <option value="oralna_kirurgija">Oralna kirurgija</option>
+                </select>
+                <div *ngIf="patientForm.get('service')?.invalid && patientForm.get('service')?.touched"
+                  class="text-danger">
+                  Usluga je obavezna.
+                </div>
+              </div>
+              <div class="form-group col-md-3 mb-3">
+                <label for="date">Datum i vrijeme</label>
+                <p-calendar id="date" formControlName="date" dateFormat="dd.mm.yy" showIcon="true" [showTime]="true"
+                  [hourFormat]="'24'" 
+                  [minDate]="minDate" 
+                  [maxDate]="maxDate" 
+                  placeholder="Odaberite"
+                  [appendTo]="'body'">
+                </p-calendar>
+                <div *ngIf="patientForm.get('date')?.invalid && patientForm.get('date')?.touched" class="text-danger">
+                  Datum i vrijeme su obavezni.
+                </div>
+                <div *ngIf="patientForm.get('date')?.errors?.['invalidTime']" class="text-danger">
+                  Molimo odaberite vrijeme između 09:00 i 17:00.
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label for="note">Dodatne napomene</label>
+                <textarea id="note" class="form-control" formControlName="note" rows="3"
+                  placeholder="Napišite specifikacije pregleda za odabranu uslugu..."></textarea>
+                <div *ngIf="patientForm.get('note')?.invalid && patientForm.get('note')?.touched" class="text-danger">
+                  Dodatne napomene su obavezne.
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="patientForm.invalid" [routerLink]="['/admin']"
+              style="background-color: #37517e; border-color: #37517e;">
+              Dodaj
+            </button>
+
+          </form>
+        </div>
+      </p-dialog>
+
+      <div class="search-bar-container">
+        <i class="bi bi-search search-icon"></i>
+        <input type="text" pInputText placeholder="Pretraži" [(ngModel)]="searchQuery" (input)="filterPatients()"
+          class="search-bar" />
+      </div>
+
+      <div class="table-responsive">
+        <table class="table align-middle mb-0 bg-white">
+          <thead class="bg-light">
+            <tr>
+              <th>Ime</th>
+              <th>Termin</th>
+              <th>Usluga</th>
+              <th>Kontakt</th>
+              <th>Napomene</th>
+              <th>Akcije</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let patient of patients">
+              <td>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-person-circle fs-2"></i>
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{ patient.firstName }} {{ patient.lastName }}</p>
+                    <p class="text-muted mb-0">{{ patient.email }}</p>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <p class="fw-normal mb-1">{{ patient.date }}</p>
+              </td>
+              <td>{{ patient.service }}</td>
+              <td>{{ patient.phone }}</td>
+              <td>{{ patient.note || '/' }}</td>
+              <td>
+                <button class="btn btn-get-started btn-outline-secondary" (click)="onEditPatient(patient)"> <i
+                    class="bi bi-pencil-square"></i>
+                  Uredi</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,4 +1,4 @@
-import { ReservationComponent } from './reservation/reservation.component';
+import { AdminComponent } from './admin/admin.component';
 import { OralSurgeryComponent } from './oral-surgery/oral-surgery.component';
 import { ProstheticsComponent } from './prosthetics/prosthetics.component';
 import { OrthodonticsComponent } from './orthodontics/orthodontics.component';
@@ -10,7 +10,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
     {
         path: '',
-        component: HomeComponent
+        component: HomeComponent,
     },
     {
         path: 'endo',
@@ -29,8 +29,8 @@ export const routes: Routes = [
         component: OralSurgeryComponent
     },
     {
-        path: 'reservation',
-        component: ReservationComponent
+        path:'admin',
+        component: AdminComponent
     },
 ];
 

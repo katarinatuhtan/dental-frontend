@@ -1,4 +1,4 @@
-<header id="header" class="header d-flex align-items-center fixed-top">
+<header id="header" class="header d-flex align-items-center fixed-top" *ngIf="showHeaderFooter">
   <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
     <a href="" class="logo d-flex align-items-center me-auto">
@@ -32,7 +32,7 @@
 
 <router-outlet></router-outlet>
 
-<footer id="footer" class="footer">
+<footer id="footer" class="footer" *ngIf="showHeaderFooter">
   <div class="container footer-top">
     <div class="row gy-4">
       <div class="col-lg-4 col-md-6 footer-about">

@@ -1,15 +1,19 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common'; // ✅ Import this
+import { Router, NavigationEnd } from '@angular/router';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent implements AfterViewInit {
+
+  showHeaderFooter = true;
 
   ngAfterViewInit(): void {
     this.initMobileNav();
@@ -134,6 +138,15 @@ export class AppComponent implements AfterViewInit {
             });
           }, 100);
         }
+      }
+    });
+  }
+
+  constructor(private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // Hide header & footer on specific routes
+        this.showHeaderFooter = !['/reservation', '/admin'].includes(event.url);
       }
     });
   }

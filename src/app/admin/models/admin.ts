@@ -1,4 +1,4 @@
-export class Reservation{
+export class Admin{
     id!: number;
     firstName!: string;
     lastName!: string;

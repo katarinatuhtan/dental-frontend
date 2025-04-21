@@ -12,22 +12,29 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  createNewPatient = (formData: Admin) => this.http.post(this.apiUrl, formData);
-  getAllPatients(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);  // Get all patients
-  }
-   // Fetch a patient by ID
-   getPatientById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
-  }
+// Create a new patient (using plain object)
+createNewPatient(patientData: any): Observable<any> {
+  return this.http.post(this.apiUrl, patientData);
+}
 
-  // Delete a patient by ID
-  deletePatient(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
-  }
+// Get all patients
+getAllPatients(): Observable<any[]> {
+  return this.http.get<any[]>(this.apiUrl);  
+}
 
-  updatePatient(id: number, formData: FormData): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, formData);
-  }
+// Fetch a patient by ID
+getPatientById(id: number): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/${id}`);
+}
+
+// Update a patient
+updatePatient(id: number, patientData: any): Observable<any> {
+  return this.http.put(`${this.apiUrl}/${id}`, patientData);
+}
+
+// Delete a patient by ID
+deletePatient(id: number): Observable<any> {
+  return this.http.delete(`${this.apiUrl}/${id}`);
+}
   
 }

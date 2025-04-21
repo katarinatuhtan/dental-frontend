@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common'; // ✅ Import this
+import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 
 
@@ -146,7 +146,7 @@ export class AppComponent implements AfterViewInit {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         // Hide header & footer on specific routes
-        this.showHeaderFooter = !['/reservation', '/admin'].includes(event.url);
+        this.showHeaderFooter = ![ '/admin', '/login'].includes(event.url);
       }
     });
   }

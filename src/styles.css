@@ -1111,3 +1111,10 @@ section,
 .form-row select{
   color:#686767;
 }
+
+.p-button{
+  background-color: var(--background-color);
+  border-radius: 10px;
+  border: none;
+}
+

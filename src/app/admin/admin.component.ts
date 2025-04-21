@@ -8,6 +8,9 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { AdminService } from './service/admin.service';
+import { AuthService } from '../auth.service'; 
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-admin',
@@ -35,7 +38,9 @@ export class AdminComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private authService: AuthService, 
+    private router: Router) {
     const initialDate = new Date();
     initialDate.setHours(9, 0, 0, 0);
 
@@ -100,56 +105,96 @@ export class AdminComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.patientForm.invalid) {
-      return;
-    }
-
-    this.adminService.createNewPatient(this.patientForm.value).subscribe((response) => {
-      console.log(response);
-      this.messageService.add({ severity: 'success', summary: 'Uspjeh!', detail: 'Vaša rezervacija za termin je zaprimljena' });
-      this.patientForm.reset();
-      this.displayDialog = false; 
-      this.loadAllPatients(); 
-    }, (error) => {
-      this.messageService.add({ severity: 'error', summary: 'Greška!', detail: 'Došlo je do pogreške, pokušajte ponovno kasnije' });
-      this.patientForm.reset();
-    });
+  if (this.patientForm.invalid) {
+    this.messageService.add({ severity: 'warning', summary: 'Pogreška', detail: 'Sva polja su obavezna.' });
+    return;
   }
 
+  const patientData = { ...this.patientForm.value }; // Get the form data
 
-  onEditPatient(patient: any): void {
-    this.selectedPatient = patient;
-    this.selectedPatientId = patient.id;
+  // If there's an existing patient ID, update the patient
+  if (this.selectedPatientId) {
+    // Include the ID in the patient data for the update
+    patientData.id = this.selectedPatientId;  // Add the ID to the data for the update
 
-    // Reset the form and ensure it's in a clean state
-    this.patientForm.reset();
-
-    // Temporarily enable the date field to allow patching
-    const dateControl = this.patientForm.get('date');
-    dateControl?.enable();
-
-    // Patch values to the form controls
-    this.patientForm.patchValue({
-      firstName: patient.firstName || '',
-      lastName: patient.lastName || '',
-      service: patient.service || '',
-      date: patient.date ? new Date(patient.date) : new Date(),
-      note: patient.note || '',
-      email: patient.email || '',
-      phoneCode: patient.phoneCode || '',
-      phone: patient.phone || ''
-    });
-
-    // Open the dialog
-    this.displayDialog = true;
-
-    // Optional: Show a message for editing
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Uređivanje',
-      detail: `Uređivanje pacijenta: ${patient.firstName}`
-    });
+    this.adminService.updatePatient(this.selectedPatientId, patientData).subscribe(
+      (response) => {
+        console.log(response);
+        this.messageService.add({ 
+          severity: 'success', 
+          summary: 'Uspjeh!', 
+          detail: 'Podaci pacijenta su ažurirani.' 
+        });
+        this.loadAllPatients(); // Reload the patient list after update
+        this.patientForm.reset();
+        this.displayDialog = false; // Close the dialog
+      }, 
+      (error) => {
+        this.messageService.add({ 
+          severity: 'error', 
+          summary: 'Greška', 
+          detail: 'Došlo je do pogreške prilikom ažuriranja.' 
+        });
+        this.patientForm.reset();
+      }
+    );
+  } else {
+    // If there's no existing patient, create a new patient
+    this.adminService.createNewPatient(patientData).subscribe(
+      (response) => {
+        console.log(response);
+        this.messageService.add({ 
+          severity: 'success', 
+          summary: 'Uspjeh!', 
+          detail: 'Vaša rezervacija za termin je zaprimljena' 
+        });
+        this.loadAllPatients(); // Reload the patient list after creating new
+        this.patientForm.reset();
+        this.displayDialog = false; // Close the dialog
+    
+      }, 
+      (error) => {
+        this.messageService.add({ 
+          severity: 'error', 
+          summary: 'Greška!', 
+          detail: 'Došlo je do pogreške, pokušajte ponovno kasnije' 
+        });
+        this.patientForm.reset();
+      }
+    );
   }
+}
+
+
+onEditPatient(patient: any): void {
+  this.selectedPatient = patient;
+
+  this.selectedPatientId = null;  // ✅ Set ID properly
+  this.selectedPatient = patient;       // ✅ Store full object if needed
+
+  const dateControl = this.patientForm.get('date');
+  dateControl?.enable();
+
+  this.patientForm.patchValue({
+    firstName: patient.firstName || '',
+    lastName: patient.lastName || '',
+    service: patient.service || '',
+    date: patient.date ? new Date(patient.date) : new Date(),
+    note: patient.note || '',
+    email: patient.email || '',
+    phoneCode: patient.phoneCode || '',
+    phone: patient.phone || ''
+  });
+
+  this.displayDialog = true;
+
+  this.messageService.add({
+    severity: 'info',
+    summary: 'Uređivanje',
+    detail: `Uređivanje pacijenta: ${patient.firstName}`
+  });
+}
+
 
   onDeletePatient(id: number): void {
     if (confirm('Jeste sigurni da želite obrisati pacijenta?')) {
@@ -188,6 +233,11 @@ export class AdminComponent implements OnInit {
     if (selectedHour < 9 || selectedHour > 16 || selectedMinute % 5 !== 0) {
       this.patientForm.get('date')?.setErrors({ 'invalidTime': true });
     }
+  }
+
+  logout(): void {
+    this.authService.logout(); 
+    this.router.navigate(['/login']);
   }
 
 }

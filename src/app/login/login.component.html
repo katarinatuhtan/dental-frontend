@@ -1,0 +1,51 @@
+<!-- <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+        <a href="" class="logo d-flex align-items-center me-auto">
+            <img src="assets/logo.png" alt="">
+        </a>
+    </div>
+</header> -->
+
+<section class="vh-100 login-section">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong">
+                    <div class="card-body p-5 text-center">
+
+                        <div class="mb-3 login-container">
+                            <a href="">
+                            <img src="assets/logo5.png" alt="Logo" class="logo-login">
+                       </a> 
+                    </div>
+                        <hr>
+                        <h1 class="mb-5 custom-heading">PRIJAVA</h1>
+
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="typeEmailX-2">Email</label>
+                            <input type="email" id="typeEmailX-2" class="form-control form-control-lg"
+                                [(ngModel)]="email" />
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="typePasswordX-2">Lozinka</label>
+                            <input type="password" id="typePasswordX-2" class="form-control form-control-lg"
+                                [(ngModel)]="password" />
+                        </div>
+
+                        <div class="form-check d-flex justify-content-start mb-4">
+                            <input class="form-check-input" type="checkbox" id="form1Example3"
+                                [(ngModel)]="rememberMe" />
+                            <label class="form-check-label ms-2 form-text-check" for="form1Example3">Zapamti
+                                lozinku</label>
+                        </div>
+                        <button class="btn btn-lg btn-block custom-button" (click)="login()">
+                            Prijavi se
+                        </button>
+                        <p-toast position="bottom-right" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

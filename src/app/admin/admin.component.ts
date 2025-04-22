@@ -35,6 +35,8 @@ export class AdminComponent implements OnInit {
   maxDate: Date;
 
 
+
+
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
@@ -238,6 +240,6 @@ onEditPatient(patient: any): void {
   logout(): void {
     this.authService.logout(); 
     this.router.navigate(['/login']);
-  }
 
+}
 }

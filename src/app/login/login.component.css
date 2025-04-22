@@ -1,56 +1,70 @@
 /* Custom button styles */
 .custom-button {
-    background-color: var(--heading-color);
-    border-color: var(--heading-color);
-    color: white;
-    font-weight: 600;
-    font-size: 18px;
-    border-radius: 80px;
-  }
-  
-  /* Override link colors */
-  a {
-    color: var(--heading-color);
-  }
-  
-  a:hover {
-    color: darken(--heading-color, 10%) !important; /* Slightly darken on hover */
-  }
-  
-  /* Input focus styles */
-  .form-control:focus {
-    border-color: var(--heading-color);
-    box-shadow: 0 0 0 0.2rem rgba(201, 104, 91, 0.25);
-  }
-  
-  /* Label colors */
-  .form-label {
-    color: var(--heading-color);
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-  }
-  
-  /* Checkbox styles */
-  .form-check-input:checked {
-    background-color: var(--heading-color);
-    border-color: var(--heading-color);
-  }
-  
-  .form-text-check {
-    font-weight: 500;
-  }
+  background-color: var(--heading-color);
+  border-color: var(--heading-color);
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  border-radius: 80px;
 
-  .logo-login{
-    max-width: 250px;
-    filter: brightness(0) saturate(100%) invert(27%) sepia(28%) saturate(932%) hue-rotate(176deg) brightness(92%) contrast(92%);
-  }
-  .custom-heading{
-    color: var(--heading-color);
-    font-family: var(--heading-font);
-    font-size: 45px;
-    font-weight: 500;
-  }
-  .card{
-    background-color: #f7f7fc;
-    border-radius: 30px;
-  }
+}
+
+.custom-button,
+.logo-login {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Override link colors */
+a {
+  color: var(--heading-color);
+}
+
+a:hover {
+  color: darken(--heading-color, 10%) !important;
+  /* Slightly darken on hover */
+}
+
+/* Input focus styles */
+.form-control:focus {
+  border-color: var(--heading-color);
+  box-shadow: 0 0 0 0.2rem rgba(201, 104, 91, 0.25);
+}
+
+/* Label colors */
+.form-label {
+  color: var(--heading-color);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+/* Checkbox styles */
+.form-check-input:checked {
+  background-color: var(--heading-color);
+  border-color: var(--heading-color);
+}
+
+.form-text-check {
+  font-weight: 500;
+}
+
+.logo-login {
+  max-width: 130px;
+  filter: brightness(0) saturate(100%) invert(27%) sepia(28%) saturate(932%) hue-rotate(176deg) brightness(92%) contrast(92%);
+}
+
+.custom-heading {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.card {
+  background-color: #f7f7fc;
+  border-radius: 30px;
+}
+
+.login-section{
+  margin-top:50px;
+  margin-bottom: 20px;
+}

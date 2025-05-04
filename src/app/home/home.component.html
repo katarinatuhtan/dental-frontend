@@ -176,34 +176,67 @@
 
   <div class="container section-title">
     <h2>Kontakt</h2>
-    <h5>Obrazac za rezervaciju termina možete ispuniti <a href="reservation">ovdje.</a> </h5>
   </div>
+
   <div class="container">
-    <div class="info-wrap">
-      <div class="info-item d-flex">
-        <i class="bi bi-geo-alt flex-shrink-0"></i>
-        <div>
-          <h3>Posjetite nas</h3>
-          <p>51000 Rijeka</p>
+    <div class="form-wrap">
+      <div class="form-info-container">
+        <form action="https://formspree.io/f/xzzrelob" method="POST">
+
+          <div class="form-row">
+            <label>
+              Ime
+              <input type="text" name="name" placeholder="Ime">
+            </label>
+            <label>
+              Prezime
+              <input type="text" name="lastName" placeholder="Prezime">
+            </label>
+          </div>
+
+          <label>
+            Email
+            <input type="email" name="email" placeholder="Email">
+          </label>
+
+          <label>
+            Broj mobitela
+            <input type="text" name="phoneNumber" placeholder="Broj mobitela">
+          </label>
+          
+          <label>
+            Upit
+            <textarea name="message" placeholder="Imate li slobodan termin..."></textarea>
+          </label>
+
+          <button type="submit">Pošalji</button>
+        </form>
+
+        <div class="info-side">
+          <div class="info-item d-flex">
+            <i class="bi bi-geo-alt flex-shrink-0"></i>
+            <div>
+              <h3>Posjetite nas</h3>
+              <p>51000 Rijeka</p>
+            </div>
+          </div>
+          <div class="info-item d-flex">
+            <i class="bi bi-telephone flex-shrink-0"></i>
+            <div>
+              <h3>Nazovite nas</h3>
+              <p>+385 123 456</p>
+            </div>
+          </div>
+          <div class="info-item d-flex">
+            <i class="bi bi-envelope flex-shrink-0"></i>
+            <div>
+              <h3>Email kontakt</h3>
+              <p><a href="mailto:infodentalsitin@gmail.com">infodentalsitin&#64;gmail.com</a></p>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="info-item d-flex">
-        <i class="bi bi-telephone flex-shrink-0"></i>
-        <div>
-          <h3>Nazovite nas</h3>
-          <p>+385 123 456</p>
-        </div>
-      </div>
-
-      <div class="info-item d-flex">
-        <i class="bi bi-envelope flex-shrink-0"></i>
-        <div>
-          <h3>Email kontakt</h3>
-          <p><a href="mailto:infodentalsitin@gmail.com">infodentalsitin&#64;gmail.com</a></p>
-        </div>
-      </div>
-
     </div>
   </div>
+
 </section>

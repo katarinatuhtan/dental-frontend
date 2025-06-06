@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +7,25 @@ import { Component, AfterViewInit } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  private handleBeforeUnload = () => {
+    const forms = document.getElementsByTagName('form');
+    for (const form of Array.from(forms)) {
+      form.reset();
+    }
+  };
+
+  ngOnInit(): void {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+  }
 
   ngAfterViewInit(): void {
     this.initFAQToggle();
+  }
 
+  ngOnDestroy(): void {
+    window.removeEventListener('beforeunload', this.handleBeforeUnload);
   }
 
   private initFAQToggle(): void {
@@ -24,6 +38,4 @@ export class HomeComponent implements AfterViewInit {
       });
     });
   }
-
-  
 }

@@ -28,11 +28,12 @@
             class="bi bi-person-plus-fill"></i> Dodaj pacijenta</button>
       </div>
 
-      <p-dialog [(visible)]="displayDialog" [modal]="true" [style]="{ width: '70rem', 'max-height': '100vh' }"
+      <p-dialog [(visible)]="displayDialog" [modal]="true"
         [breakpoints]="{ '1199px': '85vw', '768px': '90vw', '575px': '95vw' }"
-        [contentStyle]="{ 'overflow-y': 'auto', 'max-height': '80vh' }">
+        [contentStyle]="{ 'overflow-y': 'visible', 'position': 'relative' }">
         <div class="container" style="background-color: #f8f9fa; padding: 40px 40px; border-radius: 10px;
-      max-width: 800px; margin: auto;">
+      max-width: 800px; margin: auto; position: relative; overflow: visible;">
+
 
           <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
             <div class="row">
@@ -107,8 +108,7 @@
               <div class="form-group col-md-3 mb-3">
                 <label for="date">Datum i vrijeme</label>
                 <p-calendar id="date" formControlName="date" dateFormat="dd.mm.yy" showIcon="true" [showTime]="true"
-                  [hourFormat]="'24'" [minDate]="minDate" [maxDate]="maxDate" placeholder="Odaberite"
-                  [appendTo]="'body'">
+                  [hourFormat]="'24'" [minDate]="minDate" [maxDate]="maxDate" placeholder="Odaberite">
                 </p-calendar>
                 <div *ngIf="patientForm.get('date')?.invalid && patientForm.get('date')?.touched" class="text-danger">
                   Datum i vrijeme su obavezni.
@@ -142,7 +142,6 @@
         <input type="text" pInputText placeholder="Pretraži" [(ngModel)]="searchQuery" (input)="filterPatients()"
           class="search-bar" />
       </div>
-
 
       <div class="table-responsive">
         <table class="table align-middle mb-0 bg-white">

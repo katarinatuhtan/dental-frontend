@@ -276,13 +276,16 @@ h6 {
 
 /* Mobile Navigation */
 @media (max-width: 1199px) {
-  .mobile-nav-toggle {
-    color: var(--nav-color);
-    font-size: 28px;
-    line-height: 0;
-    margin-right: 10px;
-    cursor: pointer;
-    transition: color 0.3s;
+  @media (max-width: 1199px) {
+
+    .mobile-nav-toggle i,
+    .mobile-nav-toggle i::before {
+      color: white !important;
+      opacity: 1;
+      filter: none;
+      background-color: #37517e !important;
+      font-size: 16px;
+    }
   }
 
   .navmenu {

@@ -6,7 +6,7 @@ import { OrthodonticsComponent } from './orthodontics/orthodontics.component';
 import { EndodonticsComponent } from './endodontics/endodontics.component';
 import { HomeComponent } from './home/home.component';
 import { Routes } from '@angular/router';
-import { authGuard } from './auth.guard';
+import { authGuard } from './guards/auth.guard';
 
 
 

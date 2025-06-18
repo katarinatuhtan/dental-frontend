@@ -7,7 +7,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  console.log('authGuard sessionStorage check:', sessionStorage.getItem('email'), sessionStorage.getItem('password'));
+  // console.log('authGuard sessionStorage check:', sessionStorage.getItem('email'), sessionStorage.getItem('password'));
 
   const isLoggedIn = authService.isLoggedIn();
   console.log('authGuard called. Logged in?', isLoggedIn);

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { Admin } from '../models/admin';
 import { catchError, throwError } from 'rxjs';
 
 @Injectable({
@@ -9,7 +8,7 @@ import { catchError, throwError } from 'rxjs';
 })
 export class AdminService {
 
-  apiUrl = 'https://localhost:44330/api/reservations';
+  apiUrl = 'https://localhost:44330/api/patients';
 
   constructor(private http: HttpClient) { }
 

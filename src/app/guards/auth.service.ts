@@ -9,7 +9,7 @@ export class AuthService {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
 
-    console.log('AuthService isLoggedIn check:', email, password);
+    // console.log('AuthService isLoggedIn check:', email, password);
 
     return email !== null && password !== null;
   }

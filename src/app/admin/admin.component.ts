@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule, FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { AdminService } from './service/admin.service';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../guards/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -27,7 +27,6 @@ export class AdminComponent implements OnInit {
   selectedPatient!: any;
   patientForm: FormGroup;
   displayDialog: boolean = false;
-  selectedFile!: File | null;
   disabledDates: Date[] = [];
   disabledDays: number[] = [];
   minDate: Date;
@@ -38,7 +37,7 @@ export class AdminComponent implements OnInit {
     private adminService: AdminService,
     private messageService: MessageService,
     private authService: AuthService,
-    private router: Router) {
+    private router: Router,) {
     const initialDate = new Date();
     initialDate.setHours(9, 0, 0, 0);
 
@@ -66,6 +65,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAllPatients();
+    // this.authService.logout();
   }
 
   loadAllPatients(): void {
@@ -163,7 +163,7 @@ export class AdminComponent implements OnInit {
           this.messageService.add({
             severity: 'success',
             summary: 'Uspjeh!',
-            detail: 'Vaša rezervacija za termin je zaprimljena'
+            detail: 'Novi pacijent je dodan u bazu.'
           });
           this.loadAllPatients();
           this.patientForm.reset();

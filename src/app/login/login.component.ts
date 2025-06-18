@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -32,35 +31,31 @@ export class LoginComponent {
     }
   }
   login(): void {
-    const validEmail = 'dental@sitin.hr';
+    const validEmail = 'infodentalsitin@gmail.com';
     const validPassword = 'dental123';
   
     if (this.email === validEmail && this.password === validPassword) {
       // Show success message
       this.messageService.add({ severity: 'success', summary: 'Uspjeh', detail: 'Uspješno ste prijavljeni.' });
   
-      // Store login credentials **before** navigating
+      // Store login credentials in sessionStorage
+      sessionStorage.setItem('email', this.email);
+      sessionStorage.setItem('password', this.password);
+  
+      // Optionally also store in localStorage for "remember me"
       if (this.rememberMe) {
         localStorage.setItem('email', this.email);
         localStorage.setItem('password', this.password);
       } else {
-        localStorage.setItem('email', this.email);
-        localStorage.setItem('password', this.password);
+        localStorage.removeItem('email');
+        localStorage.removeItem('password');
       }
   
-      // Debug: Check that localStorage is updated immediately
-      console.log('LocalStorage email:', localStorage.getItem('email'));
-      console.log('LocalStorage password:', localStorage.getItem('password'));
-  
       // Navigate to /admin
-      console.log('Navigating to /admin...');
-      this.router.navigate(['admin']).then(success => {
-        console.log('Navigation success:', success);  // Should log true if navigation was successful
-      });
+      this.router.navigate(['admin']);
     } else {
       this.messageService.add({ severity: 'error', summary: 'Pogreška', detail: 'Neispravan email ili lozinka.' });
     }
   }
-  
   
 }

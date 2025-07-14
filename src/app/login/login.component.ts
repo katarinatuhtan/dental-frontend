@@ -4,12 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../guards/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, ToastModule],
-  providers:[MessageService],
+  imports: [CommonModule, FormsModule, ToastModule, HttpClientModule],
+  providers: [MessageService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -18,44 +20,45 @@ export class LoginComponent {
   password: string = '';
   rememberMe: boolean = false;
 
-  constructor(private router: Router, private messageService: MessageService) {}
+  constructor(
+    private router: Router,
+    private messageService: MessageService,
+    private http: HttpClient,
+    private authService: AuthService
+
+  ) { }
 
   ngOnInit(): void {
     const storedEmail = localStorage.getItem('email');
-    const storedPassword = localStorage.getItem('password');
-
-    if (storedEmail && storedPassword) {
+    if (storedEmail) {
       this.email = storedEmail;
-      this.password = storedPassword;
       this.rememberMe = true;
     }
   }
+
   login(): void {
-    const validEmail = 'infodentalsitin@gmail.com';
-    const validPassword = 'dental123';
-  
-    if (this.email === validEmail && this.password === validPassword) {
-      // Show success message
-      this.messageService.add({ severity: 'success', summary: 'Uspjeh', detail: 'Uspješno ste prijavljeni.' });
-  
-      // Store login credentials in sessionStorage
-      sessionStorage.setItem('email', this.email);
-      sessionStorage.setItem('password', this.password);
-  
-      // Optionally also store in localStorage for "remember me"
-      if (this.rememberMe) {
-        localStorage.setItem('email', this.email);
-        localStorage.setItem('password', this.password);
-      } else {
-        localStorage.removeItem('email');
-        localStorage.removeItem('password');
+    this.http.post<any>('https://localhost:44330/api/Auth/login', {
+      email: this.email,
+      password: this.password
+    }).subscribe({
+      next: (res) => {
+        this.authService.login(res.email, res.token);
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Uspjeh',
+          detail: 'Uspješno ste prijavljeni.'
+        });
+
+        setTimeout(() => this.router.navigate(['admin']), 300);
+      },
+      error: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Pogreška',
+          detail: 'Neispravan email ili lozinka.'
+        });
       }
-  
-      // Navigate to /admin
-      this.router.navigate(['admin']);
-    } else {
-      this.messageService.add({ severity: 'error', summary: 'Pogreška', detail: 'Neispravan email ili lozinka.' });
-    }
+    });
   }
-  
 }

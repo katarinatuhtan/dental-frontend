@@ -6,23 +6,17 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
   isLoggedIn(): boolean {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
-
-    // console.log('AuthService isLoggedIn check:', email, password);
-
-    return email !== null && password !== null;
+    const token = sessionStorage.getItem('token');
+    return !!token; // only checks if token exists
   }
 
-  login(email: string, password: string): void {
-    // In a real app, you'd verify these credentials via API
+  login(email: string, token: string): void {
     sessionStorage.setItem('email', email);
-    sessionStorage.setItem('password', password);
+    sessionStorage.setItem('token', token);
   }
 
   logout(): void {
     sessionStorage.removeItem('email');
-    sessionStorage.removeItem('password');
-    sessionStorage.removeItem('loginTime');
+    sessionStorage.removeItem('token');
   }
 }
